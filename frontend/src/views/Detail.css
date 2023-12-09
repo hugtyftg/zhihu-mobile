@@ -1,0 +1,54 @@
+.detail-box {
+  /* 底部栏 */
+}
+.detail-box .content {
+  overflow-x: hidden;
+  margin: 0;
+}
+.detail-box .content .img-place-holder {
+  overflow: hidden;
+}
+.detail-box .content .img-place-holder img {
+  width: 100%;
+  margin: 0;
+}
+.detail-box .content .view-more {
+  margin-bottom: 100px;
+}
+.detail-box .tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  box-sizing: border-box;
+  width: 100%;
+  height: 90px;
+  background-color: #DDD;
+  display: flex;
+  align-items: center;
+}
+.detail-box .tab-bar .back {
+  height: 50px;
+  line-height: 50px;
+  flex: 1;
+  font-size: 40px;
+  text-align: center;
+  border-right: 2px solid black;
+}
+.detail-box .tab-bar .icons {
+  flex: 4;
+  display: flex;
+  justify-content: space-around;
+  font-size: 40px;
+  /* 点赞和评论数的样式 */
+  /* 收藏样式 */
+}
+.detail-box .tab-bar .icons .adm-badge {
+  background-color: #DDD;
+}
+.detail-box .tab-bar .icons .adm-badge-content {
+  color: black;
+}
+.detail-box .tab-bar .icons .stored {
+  color: #108ee9;
+}

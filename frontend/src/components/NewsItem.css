@@ -1,0 +1,54 @@
+/* 相对定位 */
+.news-item-box {
+  position: relative;
+  height: 150px;
+  padding: 10px 0px;
+  box-sizing: border-box;
+}
+.news-item-box a {
+  display: block;
+  height: 100%;
+}
+.news-item-box a:visited .content .title {
+  color: #999;
+}
+.news-item-box a:visited .content .author {
+  color: #AAA;
+}
+.news-item-box .adm-image {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  height: 130px;
+  width: 130px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.news-item-box .adm-image img {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.news-item-box .adm-image .adm-image-tip svg {
+  height: 50px;
+  width: 50px;
+}
+.news-item-box .content {
+  margin-right: 160px;
+}
+.news-item-box .content .title {
+  font-size: 32px;
+  color: #000;
+  line-height: 45px;
+  max-height: 90px;
+  /* 多行文本溢出省略号 */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.news-item-box .content .author {
+  font-size: 22px;
+  line-height: 40px;
+  color: #999;
+}

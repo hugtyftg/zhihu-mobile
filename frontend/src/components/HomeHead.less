@@ -1,0 +1,53 @@
+// 水平间距
+@infoBoxHorizentalPadding: 30px;
+// header总高度
+@totalHeight: 120px;
+// 字、头像的实际高度
+@wrapperHeight: 80px;
+.home-head-box{
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: @totalHeight;
+  // background-color: red;
+  padding: 20px @infoBoxHorizentalPadding;
+  .info{
+    // background-color: lightblue;
+    height: 100%;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    .time{
+      height: @wrapperHeight;
+      padding-right: @infoBoxHorizentalPadding;
+      span{
+        display: block;
+        text-align: center;
+        font-size: 24px;
+        &:nth-child(1){
+          font-size: 32px;
+        }
+      }
+    }
+    .title{
+      height: @wrapperHeight;
+      line-height: @wrapperHeight;
+      padding-left: @infoBoxHorizentalPadding;
+      font-size: 40px;
+      font-weight: bolder;
+      border-left: 3px solid #EEE;
+    }
+  }
+  .picture{
+    height: 60px;
+    width: 60px;
+    overflow: hidden;
+    border-radius: 50%;
+    img{
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
