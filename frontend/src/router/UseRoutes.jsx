@@ -1,73 +1,102 @@
-import Home from "../views/Home";
-import { Navigate } from "react-router-dom";
-import { Suspense, lazy } from "react";
-const Loading = <h1>loading</h1>
+import Home from '../views/Home';
+import { Navigate } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+const Loading = <h1>loading</h1>;
 const Detail = lazy(() => import('@/views/Detail'));
 const Login = lazy(() => import('@/views/Login'));
 const Page404 = lazy(() => import('@/views/Page404'));
 const Personal = lazy(() => import('@/views/Personal'));
 const Store = lazy(() => import('@/views/Store'));
 const Update = lazy(() => import('@/views/Update'));
-// function LazyLoad(url) {
-//   const Element = lazy(() => import(url));
-//   return <Suspense fallback={Loading}>
-//     <Element/>
-//   </Suspense>
-// }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 const routes = [
   {
     path: '/',
-    element: <Navigate to={'/home'}/>
+    element: (
+      <Navigate
+        to={'/home'}
+        meta={{
+          name: 'navigate',
+          title: '知乎日报-WebApp',
+        }}
+      />
+    ),
   },
   {
     path: '/home',
-    element: <Home />,
-    meta: {
-      title: '知乎日报-WebAPP'
-    }
+    element: (
+      <Home
+        meta={{
+          name: 'navigate',
+          title: '知乎日报-WebApp',
+        }}
+      />
+    ),
   },
   {
     path: '/detail/:id',
-    name: 'detail',
-    element: <Suspense fallback={Loading}><Detail/></Suspense>,
-    meta: {
-      title: '知乎日报-WebAPP'
-    }
+    element: (
+      <Detail
+        meta={{
+          name: 'detail',
+          title: '新闻详情-知乎日报',
+        }}
+      />
+    ),
   },
   {
     path: '/personal',
-    element: <Suspense fallback={Loading}><Personal/></Suspense>
+    element: (
+      <Personal
+        meta={{
+          name: 'personal',
+          title: '个人中心-知乎日报',
+        }}
+      />
+    ),
   },
   {
     path: '/store',
-    name: 'store',
-    element: <Suspense fallback={Loading}><Store/></Suspense>,
-    meta: {
-      title: '个人收藏-知乎日报'
-    }
-  }, {
+    element: (
+      <Store
+        meta={{
+          name: 'store',
+          title: '个人收藏-知乎日报',
+        }}
+      />
+    ),
+  },
+  {
     path: '/update',
-    name: 'update',
-    element: <Suspense fallback={Loading}><Update/></Suspense>,
-    meta: {
-      title: '修改个人信息-知乎日报'
-    }
+    element: (
+      <Update
+        meta={{
+          name: 'update',
+          title: '修改个人信息-知乎日报',
+        }}
+      />
+    ),
   },
   {
     path: '/login',
-    name: 'login',
-    element: <Suspense fallback={Loading}><Login/></Suspense>,
-    meta: {
-      title: '登陆/注册-知乎日报'
-    }
+    element: (
+      <Login
+        mets={{
+          name: 'login',
+          title: '登陆/注册-知乎日报',
+        }}
+      />
+    ),
   },
   {
     path: '*',
-    name: '404',
-    element: <Suspense fallback={Loading}><Page404/></Suspense>,
-    meta: {
-      title: '404页面-知乎日报'
-    }
+    element: (
+      <Page404
+        meta={{
+          name: '404',
+          title: '404页面-知乎日报',
+        }}
+      />
+    ),
   },
-]
+];
 export default routes;
