@@ -1,7 +1,5 @@
-import React from 'react'
+import React from 'react';
 
 export default function Store() {
-  return (
-    <div className='store-box'>Store</div>
-  )
+  return <div className="store-box">Store</div>;
 }

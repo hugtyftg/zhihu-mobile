@@ -26,22 +26,35 @@ import { message } from 'antd';
 const http = function http(config) {
   // initial config & validate 「扩展：回去后，可以尝试对每一个配置项都做校验?」
   if (!_.isPlainObject(config)) config = {};
-  config = Object.assign({
-    url: '',
-    method: 'GET',
-    credentials: 'include',
-    headers: null,
-    body: null,
-    params: null,
-    responseType: 'json',
-    signal: null
-  }, config);
+  config = Object.assign(
+    {
+      url: '',
+      method: 'GET',
+      credentials: 'include',
+      headers: null,
+      body: null,
+      params: null,
+      responseType: 'json',
+      signal: null,
+    },
+    config
+  );
   if (!config.url) throw new TypeError('url must be required');
   if (!_.isPlainObject(config.headers)) config.headers = {};
-  if (config.params !== null && !_.isPlainObject(config.params)) config.params = null;
+  if (config.params !== null && !_.isPlainObject(config.params))
+    config.params = null;
 
-  let { url, method, credentials, headers, body, params, responseType, signal } = config;
-  
+  let {
+    url,
+    method,
+    credentials,
+    headers,
+    body,
+    params,
+    responseType,
+    signal,
+  } = config;
+
   // 处理问号传参
   /* 字符串传参格式：
     我的名字叫，年龄35岁, 不抽烟
@@ -57,7 +70,7 @@ const http = function http(config) {
     url += `${url.includes('?') ? '&' : '?'}${qs.stringify(params)}`;
   }
 
-  // POST请求选用urlencoded格式 query string
+  // POST请求选用urlencoded格式 类似query string name=章三&age=19 注意没有问号
   // 处理请求主体信息：按照我们后台要求，如果传递的是一个普通对象，我们要把其设置为urlencoded格式「设置请求头」？
   if (_.isPlainObject(body)) {
     body = qs.stringify(body);
@@ -69,14 +82,20 @@ const http = function http(config) {
   // 本项目的token使用localstorage存储，并且封装在 @/assets/utils.js中，key为tk
   // let token = localStorage.getItem('tk');
   let token = _.storage.get('tk'),
-    safeList = ['/user_info', '/user_update', '/store', '/store_remove', 'store_list'];
+    safeList = [
+      '/user_info',
+      '/user_update',
+      '/store',
+      '/store_remove',
+      'store_list',
+    ];
   if (token) {
     let reg = /\/api(\/[^?#]+)/,
       [, $1] = reg.exec(url);
     // 当前url是否在需要传token的safelist中
-    let isSafe = safeList.some(item => {
+    let isSafe = safeList.some((item) => {
       return $1 === item;
-    })
+    });
     if (isSafe) {
       headers['authorization'] = token;
     }
@@ -89,11 +108,11 @@ const http = function http(config) {
     credentials,
     headers,
     cache: 'no-cache',
-    signal
+    signal,
   };
   if (/^(POST|PUT|PATCH)$/i.test(method) && body) fetchOptions.body = body;
   return fetch(url, fetchOptions)
-    .then(response => {
+    .then((response) => {
       let { status, statusText } = response;
       if (/^(2|3)\d{2}$/.test(status)) {
         // 请求成功:根据预设的方式，获取需要的值
@@ -117,10 +136,10 @@ const http = function http(config) {
       return Promise.reject({
         code: -100,
         status,
-        statusText
+        statusText,
       });
     })
-    .catch(reason => {
+    .catch((reason) => {
       // 失败的统一提示
       message.error('当前网络繁忙，请您稍后再试~');
       return Promise.reject(reason); //统一处理完提示后，在组件中获取到的依然还是失败
@@ -128,7 +147,7 @@ const http = function http(config) {
 };
 
 /* 快捷方法 */
-["GET", "HEAD", "DELETE", "OPTIONS"].forEach(item => {
+['GET', 'HEAD', 'DELETE', 'OPTIONS'].forEach((item) => {
   http[item.toLowerCase()] = function (url, config) {
     if (!_.isPlainObject(config)) config = {};
     config['url'] = url;
@@ -136,7 +155,7 @@ const http = function http(config) {
     return http(config);
   };
 });
-["POST", "PUT", "PATCH"].forEach(item => {
+['POST', 'PUT', 'PATCH'].forEach((item) => {
   http[item.toLowerCase()] = function (url, body, config) {
     if (!_.isPlainObject(config)) config = {};
     config['url'] = url;
