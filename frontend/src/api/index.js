@@ -1,12 +1,14 @@
 // 封装后端接口
 import http from './http';
 const queryNewsLatest = () => http.get('/api/news_latest');
-const queryNewsBefore = (time) =>
-  http.get('/api/news_before', {
+const queryNewsBefore = (time) => {
+  console.log(time);
+  return http.get('/api/news_before', {
     params: {
       time,
     },
   });
+}
 const queryNewsInfo = (id) =>
   http.get('/api/news_info', {
     params: {
