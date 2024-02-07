@@ -7,12 +7,12 @@ import SkeletonAgain from '../components/SkeletonAgain';
 import NewsItem from '../components/NewsItem';
 import { Link } from 'react-router-dom';
 import api from '../api/index';
-import { message } from 'antd';
 
 export default function Home(props) {
-  // 设置页面title
+  /* 设置页面title */
   let { meta } = props;
   document.title = meta?.title || '知乎日报-WebApp';
+
   /* 创建所需状态 */
   // 没有从服务器拿到时间的时候展示当前时间，拿到服务器数据后才展示服务器数据时间
   let [today, setToday] = useState(_.formatTime(null, '{0}{1}{2}')); // 传的不是字符串就可以获取当前时间
@@ -25,17 +25,18 @@ export default function Home(props) {
   useEffect(() => {
     (async () => {
       try {
+        console.log(1);
         let { date, stories, top_stories } = await api.queryNewsLatest();
         setToday(date);
         setBannerData(top_stories);
-        let newNewsList = [
-          ...newsList,
-          {
+        // 避免dev模式中组件自动挂载和卸载导致异步逻辑执行两次、在newsList中放入同样的数据
+        if (newsList[newsList.length - 1]?.date !== date) {
+          newsList.push({
             date,
             stories,
-          },
-        ];
-        setNewsList(newNewsList);
+          });
+          setNewsList([...newsList]);
+        }
       } catch (error) {}
     })();
   }, []);
@@ -50,7 +51,7 @@ export default function Home(props) {
       if (isIntersecting) {
         // 每次新数据都是最后一项
         try {
-          let time = newsList[newsList.length - 1]['date'];
+          let time = newsList[newsList.length - 1].date;
           let res = await api.queryNewsBefore(time);
           newsList.push(res);
           setNewsList([...newsList]);
@@ -68,7 +69,9 @@ export default function Home(props) {
       ob = null;
     };
   }, []);
-
+  useEffect(() => {
+    console.log(newsList);
+  }, [newsList]);
   return (
     <div className="home-box">
       {/* header */}
@@ -108,7 +111,7 @@ export default function Home(props) {
                 {index === 0 ? null : (
                   <Divider
                     contentPosition="left"
-                    children={_.formatTime(item.date, '{0}{1}{2}')}
+                    children={_.formatTime(item.date, '{1}月{2}日')}
                   />
                 )}
                 {item.stories.map((newsItem) => {
@@ -133,7 +136,7 @@ export default function Home(props) {
         className="loadmore-box"
         ref={loadMore}
         style={{
-          display: newsList.length > 0 ? 'block' : 'none',
+          display: newsList.length === 0 ? 'none' : 'block',
         }}
       >
         <DotLoading />

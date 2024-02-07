@@ -75,7 +75,7 @@
     "@babel/plugin-proposal-private-property-in-object": "7.21.11"
   },
   "scripts": {
-    "start": "cross-env HOST=127.0.0.1 PORT=8080 node scripts/start.js",
+    "start": "cross-env HOST=127.0.0.1 PORT=8000 node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
